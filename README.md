@@ -1,50 +1,36 @@
-# Welcome to your Expo app 👋
+# 🛒 Explain to BOOMER App (Expo)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplikacja mobilna do zarządzania listą zakupów zbudowana w oparciu o **Expo**, **Clerk**, **React-Query**, **AsyncStorage** i **OPENAI**.
 
-## Get started
+# Adam Ścieszka - 46189
 
-1. Install dependencies
+## 🚀 Szybki start
 
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### 1. Zainstaluj zależności
 
 ```bash
-npm run reset-project
+npm install
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+### 2. Dołącz zmienne środowiskowe
 
-## Learn more
+```bash
+EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY
+EXPO_PUBLIC_OPENAI_API_KEY
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+### 3. Wystartuj apke
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm start
+```
 
-## Join the community
+### 4. Połącz się przez Expo Go
 
-Join our community of developers creating universal apps.
+## 🚀 Użyte technologie:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Tanstack React Query: Biblioteka do zarządzania stanem danych asynchronicznych w React, która automatyzuje cache'owanie, synchronizację i odświeżanie danych z API. W tym projekcie upraszcza zarządzanie historią wyjaśnień, zapewnia natychmiastową aktualizację UI po zapisaniu lub usunięciu danych
+
+- Clerk: platforma do zarządzania uwierzytelnianiem użytkowników, która oferuje gotowe komponenty logowania, rejestracji i zarządzania sesją dla aplikacji webowych i mobilnych. W tym projekcie pozwala błyskawicznie wdrożyć bezpieczny system logowania i rejestracji bez budowania własnej logiki — oszczędzając czas i minimalizując ryzyko błędów bezpieczeństwa.
+
+- OPENAI: W tym projekcie wykorzystanie OpenAI pozwala na automatyczne wyjaśnianie memów i młodzieżowego slangu w prosty, zrozumiały sposób — bez konieczności googlowania.
