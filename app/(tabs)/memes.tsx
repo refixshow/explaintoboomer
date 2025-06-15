@@ -1,5 +1,5 @@
-import { ThemedText } from "@/components/ThemedText";
-import { useMemeList, useRemoveMeme } from "@/libs/meme";
+import { useMemeList, useRemoveMeme } from "@/features/memes/api";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { useRouter } from "expo-router";
 import {
   Alert,
@@ -27,7 +27,7 @@ export default function MemesScreen() {
   return (
     <FlatList
       data={memes}
-      keyExtractor={(item) => `${item.timestamp}`}
+      keyExtractor={(item) => `${item.imageUri}`}
       numColumns={2}
       contentContainerStyle={styles.list}
       style={{

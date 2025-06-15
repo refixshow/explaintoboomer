@@ -1,9 +1,9 @@
-import { ThemedText } from "@/components/ThemedText";
-import { usePhraseList, useRemovePhrase } from "@/libs/phase";
+import { usePhraseList, useRemovePhrase } from "@/features/phrases/api";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { useRouter } from "expo-router";
 import { Alert, FlatList, StyleSheet, TouchableOpacity } from "react-native";
 
-export default function StatementsScreen() {
+export default function PhrasesScreen() {
   const router = useRouter();
   const { data: phrases, isLoading } = usePhraseList();
   const removePhrase = useRemovePhrase();
@@ -19,13 +19,13 @@ export default function StatementsScreen() {
   return (
     <FlatList
       data={phrases}
-      keyExtractor={(item) => `${item.timestamp}`}
+      keyExtractor={(item) => `${item.phrase}`}
       contentContainerStyle={styles.list}
       renderItem={({ item }) => (
         <TouchableOpacity
           onPress={() =>
             router.push({
-              pathname: "/statements/[timestamp]",
+              pathname: "/phrases/[timestamp]",
               params: { timestamp: String(item.timestamp) },
             })
           }

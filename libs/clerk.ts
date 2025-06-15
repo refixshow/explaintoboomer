@@ -1,6 +1,7 @@
 import { useClerk, useSignIn, useSignUp } from "@clerk/clerk-expo";
 import { useMutation } from "@tanstack/react-query";
 import { Alert } from "react-native";
+import { storage } from "./storage";
 
 export const useSignUpMutation = () => {
   const { isLoaded, signUp } = useSignUp();
@@ -69,8 +70,9 @@ export const useSignOut = () => {
   const { signOut } = useClerk();
 
   return useMutation({
-    mutationFn: () => {
-      return signOut();
+    mutationFn: async () => {
+      await signOut();
+      storage.clear();
     },
     onError: (err) => {
       console.error("Błąd wylogowania", err.message);

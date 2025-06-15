@@ -1,13 +1,13 @@
-import { ThemedText } from "@/components/ThemedText";
-import { usePhraseEntry } from "@/libs/phase";
+import { usePhraseEntryByTimestamp } from "@/features/phrases/api";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { useLocalSearchParams } from "expo-router";
 import { ScrollView, StyleSheet } from "react-native";
 
-export default function StatementDetail() {
+export default function PhraseDetail() {
   const { timestamp } = useLocalSearchParams<{ timestamp: string }>();
   const parsedTimestamp = Number(timestamp);
 
-  const { data, isLoading } = usePhraseEntry(parsedTimestamp);
+  const { data, isLoading } = usePhraseEntryByTimestamp(parsedTimestamp);
 
   if (isLoading) {
     return <ThemedText style={styles.center}>Ładowanie...</ThemedText>;

@@ -1,26 +1,20 @@
 import { Redirect, Tabs } from "expo-router";
-import React, { useEffect } from "react";
+import React from "react";
 import { Platform } from "react-native";
 
-import { HapticTab } from "@/components/HapticTab";
-import { IconSymbol } from "@/components/ui/IconSymbol";
-import TabBarBackground from "@/components/ui/TabBarBackground";
-import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
+import { useSyncStorageOnLogout } from "@/hooks/useSyncStorageOnLogout";
+import { Colors } from "@/shared/constants/Colors";
+import { HapticTab } from "@/shared/ui/HapticTab";
+import { IconSymbol } from "@/shared/ui/IconSymbol";
+import TabBarBackground from "@/shared/ui/TabBarBackground";
 import { useAuth } from "@clerk/clerk-expo";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function TabLayout() {
   const colorScheme = useColorScheme();
-
   const { isSignedIn } = useAuth();
 
-  useEffect(() => {
-    if (!isSignedIn) {
-      AsyncStorage.removeItem("meme_history");
-      AsyncStorage.removeItem("phrase_history");
-    }
-  }, [isSignedIn]);
+  useSyncStorageOnLogout();
 
   if (!isSignedIn) {
     return <Redirect href={"/(auth)/sign-up"} />;

@@ -1,5 +1,6 @@
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { useOfflineAlert } from "@/hooks/useOfflineAlert";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { ClerkProvider } from "@clerk/clerk-expo";
 import { tokenCache } from "@clerk/clerk-expo/token-cache";
 import { useReactQueryDevTools } from "@dev-plugins/react-query";
@@ -37,8 +38,7 @@ export default function RootLayout() {
   useOfflineAlert();
 
   if (!loaded) {
-    // Async font loading only occurs in development.
-    return null;
+    return <ThemedText>Ładowanie...</ThemedText>;
   }
 
   return (

@@ -1,5 +1,5 @@
-import { ThemedText } from "@/components/ThemedText";
 import { useThemeColor } from "@/hooks/useThemeColor";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { ReactNode } from "react";
 import {
   StyleProp,

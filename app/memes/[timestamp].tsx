@@ -1,5 +1,5 @@
-import { ThemedText } from "@/components/ThemedText";
-import { useMemeEntry } from "@/libs/meme";
+import { useMemeByTimestamp } from "@/features/memes/api";
+import { ThemedText } from "@/shared/ui/ThemedText";
 import { useLocalSearchParams } from "expo-router";
 import { Image, ScrollView, StyleSheet } from "react-native";
 
@@ -7,7 +7,7 @@ export default function MemeDetailScreen() {
   const { timestamp } = useLocalSearchParams<{ timestamp: string }>();
   const numericTimestamp = Number(timestamp);
 
-  const { data: meme, isLoading } = useMemeEntry(numericTimestamp);
+  const { data: meme, isLoading } = useMemeByTimestamp(numericTimestamp);
 
   if (isLoading) {
     return <ThemedText style={styles.center}>Ładowanie...</ThemedText>;

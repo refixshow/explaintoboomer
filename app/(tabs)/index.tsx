@@ -1,20 +1,22 @@
 import {
   ActivityIndicator,
+  Alert,
   Image,
   Pressable,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 
-import ParallaxScrollView from "@/components/ParallaxScrollView";
-import { ThemedInput } from "@/components/ThemedInput";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
+import ParallaxScrollView from "@/shared/ui/ParallaxScrollView";
+import { ThemedInput } from "@/shared/ui/ThemedInput";
+import { ThemedText } from "@/shared/ui/ThemedText";
+import { ThemedView } from "@/shared/ui/ThemedView";
 
-import { SignOutButton } from "@/components/SignOutButton";
-import { useExplainMeme } from "@/libs/meme";
-import { useExplainText } from "@/libs/phase";
+import { useExplainMeme } from "@/features/memes/api";
+import { useExplainText } from "@/features/phrases/api";
 import { useSelectImage } from "@/libs/select-image";
+import { Colors } from "@/shared/constants/Colors";
+import { SignOutButton } from "@/shared/ui/SignOutButton";
 import { useUser } from "@clerk/clerk-expo";
 import { useState } from "react";
 
@@ -26,26 +28,39 @@ export default function HomeScreen() {
 
   const [isInputActive, setInputActive] = useState(false);
 
-  const [text, setText] = useState("");
+  const [phrase, setPhrase] = useState("");
 
   const pickImage = () => {
     explainText.reset();
-    setText("");
+    setPhrase("");
     selectImage.mutate(null, {
       onSuccess: (result) => {
         if (result) {
-          explainMeme.mutate({ base64: result.base64, imageUri: result.uri });
+          explainMeme.mutate(
+            { base64: result.base64, imageUri: result.uri },
+            {
+              onError: (error) => {
+                Alert.alert("Błąd Tłumaczenia Mema!", error.message);
+              },
+            }
+          );
         }
+      },
+      onError: (error) => {
+        Alert.alert("Błąd wybierania zdjęcia!", error.message);
       },
     });
   };
 
-  const runExplainTest = () => {
+  const explainPhrase = () => {
     explainMeme.reset();
     selectImage.reset();
-    explainText.mutate(text, {
+    explainText.mutate(phrase, {
       onSuccess: () => {
-        setText("");
+        setPhrase("");
+      },
+      onError: (error) => {
+        Alert.alert("Błąd Tłumaczenia Frazy!", error.message);
       },
     });
   };
@@ -73,9 +88,9 @@ export default function HomeScreen() {
             numberOfLines={4}
             label="Co wyjaśnić?"
             placeholder="Wpisz zdanie lub zwrot do wyjaśnienia"
-            value={text}
+            value={phrase}
             editable={!explainText.isPending && !explainMeme.isPending}
-            onChangeText={setText}
+            onChangeText={setPhrase}
             onFocus={() => setInputActive(true)}
             onBlur={() => setInputActive(false)}
             extendedLabel={
@@ -92,8 +107,12 @@ export default function HomeScreen() {
               styles.button,
               pressed && { opacity: 0.8 },
             ]}
-            onPress={runExplainTest}
-            disabled={explainText.isPending || explainMeme.isPending}
+            onPress={explainPhrase}
+            disabled={
+              explainText.isPending ||
+              explainMeme.isPending ||
+              phrase.length < 5
+            }
           >
             <ThemedText style={styles.buttonText}>Wyjaśnij</ThemedText>
           </Pressable>
@@ -157,7 +176,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   button: {
-    backgroundColor: "#047d2c",
+    backgroundColor: Colors.dark.primary,
     paddingVertical: 12,
     paddingHorizontal: 24,
     borderRadius: 8,

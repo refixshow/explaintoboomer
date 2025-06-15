@@ -1,7 +1,8 @@
-import { ThemedInput } from "@/components/ThemedInput";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import { useSignUpMutation, useVerifyCodeMutation } from "@/libs/clerk";
+import { Colors } from "@/shared/constants/Colors";
+import { ThemedInput } from "@/shared/ui/ThemedInput";
+import { ThemedText } from "@/shared/ui/ThemedText";
+import { ThemedView } from "@/shared/ui/ThemedView";
 import { Link, useRouter } from "expo-router";
 import * as React from "react";
 import {
@@ -118,7 +119,7 @@ const styles = StyleSheet.create({
     marginBottom: 16,
   },
   button: {
-    backgroundColor: "#047d2c",
+    backgroundColor: Colors.dark.primary,
     paddingVertical: 14,
     borderRadius: 8,
     alignItems: "center",
